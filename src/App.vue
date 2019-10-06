@@ -1,36 +1,37 @@
 <template>
-  <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+  <v-app id="app">
+    <router-view />
+    <admin />
+    <snack />
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Admin from "./components/Admin";
+import Snack from "./components/Snack";
+import md5 from "crypto-js/md5";
 
 export default {
-  name: 'App',
+  name: "app",
   components: {
-    HelloWorld,
+    Admin,
+    Snack
   },
-  data: () => ({
-    //
-  }),
+  mounted() {
+    let model = localStorage.getItem("admin");
+    model = md5(model);
+    if (model == "d378703c8438512ae09385b5e97efc3a")
+      this.$store.commit("administrate", true);
+    this.$store.dispatch("data");
+  }
 };
 </script>
+
+<style>
+.width {
+  margin: 0 10px;
+}
+.decoration {
+  text-decoration: none;
+}
+</style>
