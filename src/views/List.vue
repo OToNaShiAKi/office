@@ -1,14 +1,14 @@
 <template>
-  <v-container>
-    <v-subheader>
+  <v-container class="px-6">
+    <v-subheader class="mx-n4">
       <h4>公房借用须知：</h4>
       <v-spacer></v-spacer>
       <v-icon color="error">mdi-alert</v-icon>
     </v-subheader>
-    <v-container>
+    <section>
       <p class="body-2" v-for="(v, i) in know" :key="i">{{v}}</p>
-    </v-container>
-    <v-btn @click="$router.go(-1)" color="primary" rounded outlined block>已阅</v-btn>
+    </section>
+    <v-btn @click="$router.go(-1)" color="primary" outlined block rounded>已阅</v-btn>
   </v-container>
 </template>
 

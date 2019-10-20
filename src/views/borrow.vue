@@ -2,7 +2,7 @@
   <v-container>
     <v-text-field v-model="depart" required label="部门" />
     <v-text-field v-model="person" required label="借用人" />
-    <v-text-field v-model="qq" required label="QQ" type="tel" max-length="10" />
+    <v-text-field v-model="qq" required label="QQ" type="tel" maxlength="10" />
     <v-select v-model="house" :items="houses" label="选择公房" />
     <v-menu max-width="100%" transition="scale-transition">
       <template v-slot:activator="{ on }">
@@ -34,9 +34,9 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-btn @click="sub" :disabled="disabled" color="primary" rounded block outlined>提交</v-btn>
-    <v-btn text @click="$router.go(-1)">返回</v-btn>
-    <v-btn text @click="$router.push('/list')" class="float-right">借用规则</v-btn>
+    <v-btn @click="sub" :disabled="disabled" color="primary" rounded block class="mb-2" outlined>提交</v-btn>
+    <router-link to="/" class="caption decoration">返回</router-link >
+    <router-link to="/list" class="float-right caption decoration">借用规则</router-link >
   </v-container>
 </template>
 
@@ -48,8 +48,8 @@ export default {
   computed: {
     ...mapState(["houses"]),
     disabled() {
-      let { house, group, person, qq, date, start, end } = this;
-      return house && group && person && qq >= 5 && date && start && end;
+      let { house, depart, person, qq, date, start, end } = this;
+      return !(house && depart && person && /^[1-9][0-9]{4,10}$/.test(qq) && date && start && end);
     }
   },
   data: () => ({

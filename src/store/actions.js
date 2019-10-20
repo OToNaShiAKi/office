@@ -20,7 +20,7 @@ export default {
                 commit("sub", borrow);
             } else throw res;
         }).catch(res => {
-            window.console.log(res);
+            console.log(res);
             commit("snack", {
                 color: "error",
                 text: "提交失败，请确认网络后重新提交！"
@@ -30,7 +30,7 @@ export default {
     data: ({
         commit
     }) => {
-        axios.get("/bgs/php/data.php").then(res => {
+        axios.get("php/data.php").then(res => {
             let {
                 status,
                 informations
@@ -38,7 +38,7 @@ export default {
             if (status) commit("data", informations);
             else throw res;
         }).catch(res => {
-            window.console.log(res);
+            console.log(res);
             commit("snack", {
                 color: "error",
                 text: "获取数据失败，请刷新重试！"
@@ -48,7 +48,7 @@ export default {
     status: ({
         commit
     }, status) => {
-        axios.post("/bgs/php/status.php", qs.stringify(status)).then(res => {
+        axios.post("php/status.php", qs.stringify(status)).then(res => {
             if (res.data) {
                 commit('status', status);
                 commit("snack", {
@@ -57,7 +57,7 @@ export default {
                 });
             } else throw res;
         }).catch(res => {
-            window.console.log(res);
+            console.log(res);
             commit("snack", {
                 color: "error",
                 text: "提交失败，请确认网络后重新提交！"
@@ -67,7 +67,7 @@ export default {
     delete: ({
         commit
     }, id) => {
-        axios.post("/bgs/php/confirm.php", qs.stringify({
+        axios.post("php/confirm.php", qs.stringify({
             id
         })).then(res => {
             if (res.data) {
@@ -78,7 +78,7 @@ export default {
                 commit("delete", id);
             } else throw res;
         }).catch(res => {
-            window.console.log(res);
+            console.log(res);
             commit("snack", {
                 color: "error",
                 text: "删除失败，请确认网络后重新删除！"

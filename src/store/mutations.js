@@ -17,22 +17,22 @@ export default {
         qq,
         id,
         house,
-        group,
+        depart,
         person
     }) => {
         date = date.split("-");
         let time = `${date[1]}-${date[2]} ${start}-${end}`
         state.informations[house].push({
-            group,
+            depart,
             person,
             time,
             qq,
-            status: "未审核",
+            status: "待审",
             id
         });
     },
     data: (state, data) => {
-        state.informations = data.informations;
+        state.informations = data;
     },
     status: (state, {
         status,
@@ -41,14 +41,14 @@ export default {
         let house = state.active;
         state.informations[house].forEach(v => {
             if (v.id == id)
-                v.status = status;
+                v.status = status ? "批准" : "驳回";
         });
     },
     delete: (state, id) => {
         let house = state.active;
         state.informations[house].forEach((v, i) => {
             if (v.id == id)
-                state[house].splice(i, 1);
+                state.informations[house].splice(i, 1);
         });
     }
 }

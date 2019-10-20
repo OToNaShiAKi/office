@@ -30,7 +30,7 @@ export default {
         this.error = false;
         this.$store.commit("dialog", false);
         this.$store.commit("administrate", true);
-        localStorage.setItem("admin", this.model);
+        localStorage.setItem("admin", model);
       } else this.error = true;
     },
     hide() {

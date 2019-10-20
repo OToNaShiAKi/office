@@ -1,9 +1,11 @@
 <template>
-  <v-tabs-items v-model="active">
+  <v-tabs-items v-model="$store.state.active">
     <v-tab-item v-for="v in houses" :key="v.value" :value="v.value">
       <v-data-table
         hide-default-header
         hide-default-footer
+        sort-desc
+        :items-per-page="-1"
         :search="search"
         :headers="administrate ? adminHeaders :headers "
         :items="informations[v.value]"
@@ -30,20 +32,20 @@ export default {
       { text: "状态", value: "status" }
     ],
     adminHeaders: [
+      { text: "管理", value: "action" },
       { text: "组织", value: "depart" },
       { text: "借用时间", value: "time" },
-      { text: "借用人", value: "people" },
+      { text: "借用人", value: "person" },
       { text: "QQ", value: "qq" },
-      { text: "状态", value: "status" },
-      { text: "管理", value: "action" }
+      { text: "状态", value: "status" }
     ]
   }),
   computed: {
-    ...mapState(["houses", "active", "informations", "search", "administrate"])
+    ...mapState(["houses", "informations", "search", "administrate"])
   },
   methods: {
     status(id, status) {
-      let bool = confirm(`确认修改此条记录状态为${status ? '批准' : '驳回'}？`);
+      let bool = confirm(`确认修改此条记录状态为${status ? "批准" : "驳回"}？`);
       if (bool) this.$store.dispatch("status", { status, id });
     },
     del(id) {
